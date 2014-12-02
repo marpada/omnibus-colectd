@@ -9,7 +9,7 @@ source :url => "ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-#{
 
 relative_path "openldap-#{version}"
 
-#dependency "berkeleydb"
+dependency "openssl"
 dependency "gnutls"
 dependency "zlib"
 dependency "p11-kit"
@@ -29,7 +29,7 @@ build do
            "--prefix=#{install_dir}/embedded",
            "--disable-hdb","--disable-bdb",
   ], :env => env
-  command "make"
+  command "make", :env => env
   command "make install"
 
 end
