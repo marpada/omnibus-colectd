@@ -7,6 +7,8 @@ source :url => "http://p11-glue.freedesktop.org/releases/p11-kit-#{version}.tar.
 
 relative_path "p11-kit-#{version}"
 
+dependency "libtasn1"
+dependency "libffi"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
