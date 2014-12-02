@@ -14,12 +14,15 @@ env = {
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
 }
 
+dependency "zlib"
+
 build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
           "--without-python",
+          "--with-zlib=#{install_dir}/embedded",
   ], :env => env
-  command "make"
+  command "make", :env => env
   command "make install"
 
 end
