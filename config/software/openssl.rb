@@ -6,16 +6,17 @@ source :url => "https://www.openssl.org/source/openssl-#{version}.tar.gz",
 
 relative_path "openssl-#{version}"
 
-
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
-  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
+  "CFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include -fPIC",
   "LD_RUN_PATH" => "#{install_dir}/embedded/lib"
 }
 
 build do
   command ["./config",
-           "--prefix=#{install_dir}/embedded"]
+           "--prefix=#{install_dir}/embedded" ,
+           "shared",
+  ], :env => env
   command "make"
   command "make install"
 
