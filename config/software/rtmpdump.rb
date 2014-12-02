@@ -15,6 +15,10 @@ env = {
 }
 
 build do
-  command "make SYS=posix"
+  command "make SYS=posix", :env => env
+  command "cp rtmpdump.o #{install_dir}/embedded/lib"
+  command "cp rtmpgw.o #{install_dir}/embedded/lib"
+  command "cp librtmp/*.o #{install_dir}/embedded/lib"
+  command "cp librtmp/*.so* #{install_dir}/embedded/lib"
 
 end
