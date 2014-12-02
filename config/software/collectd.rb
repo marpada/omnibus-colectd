@@ -25,7 +25,9 @@ env = {
 
 build do
   command ["./configure",
-           "--prefix=#{install_dir}/embedded"] , :env => env 
+           "--prefix=#{install_dir}/embedded",
+          "--disable-python",
+  ] , :env => env 
   command "make"
   command "make install"
 
