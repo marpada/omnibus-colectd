@@ -14,6 +14,8 @@ dependency "openssl"
 dependency "zlib"
 dependency "openldap"
 dependency "gnutls"
+dependency "libtasn1"
+dependency "libffi"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
