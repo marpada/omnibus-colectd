@@ -9,6 +9,7 @@ source :url => "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-#{version}.tar.bz
 
 relative_path "libgcrypt-#{version}"
 
+dependency "libgpg-error"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
@@ -18,7 +19,9 @@ env = {
 
 build do
   command ["./configure",
-           "--prefix=#{install_dir}/embedded"]
+           "--prefix=#{install_dir}/embedded",
+          "--with-gpg-error-prefix=#{install_dir}/embedded",
+  ]
   command "make"
   command "make install"
 
