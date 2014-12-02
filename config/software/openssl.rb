@@ -16,6 +16,15 @@ build do
   command ["./config",
            "--prefix=#{install_dir}/embedded" ,
            "shared",
+           "zlib",
+           "no-rc5",
+           "--with-zlib-lib=#{install_dir}/embedded/lib",
+           "--with-zlib-include=#{install_dir}/embedded/include",
+           "disable-gost",
+           "-L#{install_dir}/embedded/lib",
+           "-I#{install_dir}/embedded/include",
+           "-Wl,-rpath,#{install_dir}/embedded/lib",
+
   ], :env => env
   command "make"
   command "make install"
