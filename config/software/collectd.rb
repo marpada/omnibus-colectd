@@ -15,6 +15,7 @@ dependency "libidn"
 dependency "rtmpdump"
 dependency "openssl"
 dependency "zlib"
+dependency "libxml2"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
