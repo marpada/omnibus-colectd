@@ -10,6 +10,13 @@ source :url => "ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/openldap-#{
 relative_path "openldap-#{version}"
 
 #dependency "berkeleydb"
+dependency "gnutls"
+dependency "zlib"
+dependency "p11-kit"
+dependency "libtasn1"
+dependency "nettle"
+dependency "gmp"
+dependency "libffi"
 
 env = {
   "LDFLAGS" => "-L#{install_dir}/embedded/lib -I#{install_dir}/embedded/include",
