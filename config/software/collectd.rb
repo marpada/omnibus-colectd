@@ -30,5 +30,10 @@ build do
   ] , :env => env 
   command "make"
   command "make install"
+  command "test -d #{install_dir}/sbin || mkdir -p #{install_dir}/sbin"
+  Dir.glob("#{install_dir}/embedded/sbin/collectd*").each do |binary|
+    command "echo binary=#{binary}"
+    command "ln -s #{binary} #{install_dir}/sbin/"
+  end
 
 end
