@@ -1,9 +1,9 @@
 name 'collectd'
-maintainer 'David Pando'
-homepage 'http://www.foundryhq.com/'
+maintainer 'david.pando@foundryhq.com'
+homepage 'https://collectd.org/'
 
-install_dir     "./local/opt/collectd"
-build_version   Omnibus::BuildVersion.semver
+install_dir     "/opt/collectd"
+build_version   "5.4.1"
 build_iteration 1
 
 # collectd dependencies/components
