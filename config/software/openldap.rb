@@ -28,6 +28,8 @@ build do
   command ["./configure",
            "--prefix=#{install_dir}/embedded",
            "--disable-hdb","--disable-bdb",
+             "--disable-slapd",
+             "--disable-backends",
   ], :env => env
   command "make", :env => env
   command "make install"
