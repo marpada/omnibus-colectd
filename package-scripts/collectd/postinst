@@ -5,12 +5,30 @@
 #
 
 PROGNAME=$(basename $0)
+CONFIG_DIR=/etc/collectd
+INSTALL_DIR=/opt/collectd
 
 function error_exit
 {
   echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
   exit 1
 }
+
+function link_binaries() {
+
+  for binary in ${INSTALL_DIR}/sbin/*
+  do
+    ln -s $binary /usr/sbin/
+  done
+
+}
+
+test -d ${CONFIG_DIR} || mkdir -p ${CONFIG_DIR}
+chmod 0750 ${CONFIG_DIR}
+
+link_binaries
+
+
 
 echo "Thank you for installing collectd!"
 
