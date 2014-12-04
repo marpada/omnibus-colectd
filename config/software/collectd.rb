@@ -31,8 +31,14 @@ build do
   command "make"
   command "make install"
   command "test -d #{install_dir}/sbin || mkdir -p #{install_dir}/sbin"
+  mkdir "#{install_dir}/embedded/etc/init.d/"
+
+  mkdir "#{install_dir}/embedded/var/lib/"
+  erb :source => "init/#{Ohai['platform_family']}/collectd.erb",
+      :dest => "#{install_dir}/embedded/etc/init.d/collectd",
+      :vars => { :install_dir =>  install_dir},
+      :mode => 0755
   Dir.glob("#{install_dir}/embedded/sbin/collectd*").each do |binary|
-    command "echo binary=#{binary}"
     command "ln -s #{binary} #{install_dir}/sbin/"
   end
 
