@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+set -e
 #
 # Perform necessary collectd setup steps
 # after package is installed.
@@ -7,28 +8,33 @@
 PROGNAME=$(basename $0)
 CONFIG_DIR=/etc/collectd
 INSTALL_DIR=/opt/collectd
+BASE_DIR=/var/lib/collectd
 
-function error_exit
-{
-  echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
-  exit 1
-}
 
-function link_binaries() {
+# Link collectd binaries to /usr/sbin
+for binary in ${INSTALL_DIR}/sbin/*
+do
+  test -f /usr/sbin/$(basename $binary) || ln -s $binary /usr/sbin/ 2>/dev/null
+done
 
-  for binary in ${INSTALL_DIR}/sbin/*
-  do
-    ln -s $binary /usr/sbin/
-  done
-
-}
-
+# Create config folders
 test -d ${CONFIG_DIR} || mkdir -p ${CONFIG_DIR}
 chmod 0750 ${CONFIG_DIR}
+test -d ${CONFIG_DIR}/conf.d || mkdir -p ${CONFIG_DIR}/conf.d
+cp ${INSTALL_DIR}/embedded/etc/collectd.conf ${CONFIG_DIR}
+chmod 0644 ${CONFIG_DIR}/collectd.conf
 
-link_binaries
+
+# Create BASE_DIR
+test -d ${BASE_DIR}/ || mkdir -p ${BASE_DIR}/
+chmod 0750 ${BASE_DIR}
+ln -s ${BASE_DIR} ${INSTALL_DIR}/embedded/var/lib/collectd 2>/dev/null
 
 
+# Create init script
+
+cp ${INSTALL_DIR}/embedded/etc/init.d/collectd /etc/init.d/
+chmod 0755 /etc/init.d/collectd
 
 echo "Thank you for installing collectd!"
 

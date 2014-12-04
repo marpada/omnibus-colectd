@@ -1,8 +1,31 @@
-#!/bin/bash
+#!/bin/sh 
+set -e
 #
 # Perform necessary collectd removal steps
 # after package is uninstalled.
 #
+
+CONFIG_DIR=/etc/collectd
+BASE_DIR=/var/lib/collectd
+
+
+case "$1" in
+  purge)
+    echo "Deleting config folder on ${CONFIG_DIR}"
+    rm -rf ${CONFIG_DIR} 2>/dev/null
+    echo "Deleting base folder on ${BASE_DIR}"
+    rm -rf ${BASE_DIR} 2>/dev/null
+    ;;
+  esac
+
+echo "Deleting symlinks on /usr/sbin"
+for binary in collectd collectdmon
+do
+  test -f /usr/sbin/$binary && rm -f /usr/sbin/$binary 2>/dev/null
+done
+
+echo "Deleting /etc/init.d/collectd"
+test -f /etc/init.d/collectd && rm -f /etc/init.d/collectd 2>/dev/null
 
 echo "collectd has been uninstalled!"
 
